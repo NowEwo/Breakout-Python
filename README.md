@@ -8,4 +8,8 @@ Atari breakout python
 - Trainée de la balle
 - Niveaux infinis avec couleurs randoms
 - Effet de secousses
-- Scores
+- Scores (+ Interpolation animation)
+- Hints
+- Logs
+- Mode développement
+- Autoplay
