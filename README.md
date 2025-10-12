@@ -189,5 +189,3 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ⬆ [Back to Top](#readme)
 
 </div>
-
-Would you like me to make a **dark/light adaptive banner** or **add badges (e.g. Python version, license, repo stars)** to the top as well? That would make it look even more professional for GitHub.
