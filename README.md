@@ -24,23 +24,24 @@ Combining nostalgic gameplay with modern roguelike elements, BrokeOut offers a f
 Break bricks, collect power-ups, and watch the chaos unfold through increasingly challenging levels.
 
 > ⚡ Fast-paced, visually appealing, and endlessly replayable — this isn’t your typical breakout game.
+>
+> (Eeew, currently there's nothing of this, just a menu and a normal breakout game xwx)
 
 ---
 
 ## ✨ Features
 
-- 🎯 **Classic Breakout Gameplay** — Paddle, ball, bricks. You know the drill!  
-- 🎲 **Roguelike Elements** — Random power-ups and unpredictable gameplay  
-- 🎨 **Modern Visual Design** — Clean, attractive graphics that pop  
+- 🎯 **Classic Breakout Gameplay** — Paddle, ball, bricks. You know the drill!
+- 🎨 **Modern Visual Design** — Clean, attractive graphics that pop
 - ⚡ **Fast-Paced Action** — Quick rounds perfect for short gaming sessions  
-- 🔧 **Built with Python** — Open source and easy to understand  
+- 🔧 **Built with Python** — Open source and easy to understand
 
 ---
 
 ## 🚀 Installation
 
 ### 🧩 Prerequisites
-- Python **3.8+**
+- Python **3.8+** (**3.13** recommended)
 - [`uv`](https://github.com/astral-sh/uv) package manager
 
 ### ⚙️ Quick Start
