@@ -65,7 +65,7 @@ class MenuScene(Scene):
                     self.egg = random.randint(0,10) == 5 or DEBUG_EASTER_EGG
                     self.credits = True
                 elif(self.menu_buttons["Web"].get_collided()):
-                    webbrowser.open("https://nowewo.github.io/brokeout")
+                    webbrowser.open("https://nowewo.github.io/BrokeOut/")
                 elif(self.menu_buttons["Quit"].get_collided()):
                     exit()
 
