@@ -23,4 +23,4 @@ DEBUG_EASTER_EGG = False
 
 DEV_MODE = True
 
-VERSION = "0.1.9"
+VERSION = "0.1"
