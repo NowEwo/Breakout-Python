@@ -34,5 +34,5 @@ class Button(prototype.Entity):
         self.text_rect = self.font.get_rect(self.text, size = FONT_SIZE-10)
         button.center = self.text_rect.center = self.pos
 
-        pygame.draw.rect(surface, ( , 153 if button.collidepoint(mouse) else 255), button, 0)
+        pygame.draw.rect(surface, (255, 153, 191, 153 if button.collidepoint(mouse) else 255), button, 0)
         self.font.render_to(surface, self.text_rect, self.text, (85, 51, 57), size = FONT_SIZE-10)
