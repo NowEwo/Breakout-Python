@@ -23,4 +23,3 @@ class ErrorHandler(GameContext):
                     self.logger.log(f"{key}: {type(value).__name__} = {value}")
            self.logger.highlight("--------- END OF DUMP ---------")
            self.logger.critical(f"Error of type {exctype.__name__} at context [{value}]")
-           # sys.__excepthook__(exctype, value, traceback)

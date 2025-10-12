@@ -2,7 +2,7 @@
 
 from core.context import GameContext
 
-class Entity:
+class Entity(GameContext):
     def __init__(self) -> None:
         self.game = GameContext.get_game()
         self.scene = self.game.active_scene

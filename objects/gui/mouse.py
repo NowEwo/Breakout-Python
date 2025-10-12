@@ -13,8 +13,12 @@ class Mouse(prototype.Entity):
         if pygame.mouse.get_focused():
             mousex, mousey = pygame.mouse.get_pos()
             cursor = pygame.Rect(
-                int(mousex-7),
-                int(mousey-7),
-                15-1,15-1
+                int(mousex-2),
+                int(mousey-2),
+                4,4
             )
+            if DEBUG_PRECISE_MOUSE:
+                pygame.draw.rect(self.game.window, [255,0,0], (mousex,0,1,RENDER_HEIGHT))
+                pygame.draw.rect(self.game.window, [255,0,0], (0,mousey,RENDER_WIDTH,1))
+
             pygame.draw.rect(self.game.window, (255, 153, 191, 109), cursor, 0)

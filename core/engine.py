@@ -9,7 +9,7 @@ import pygame
 class Game:
     def __init__(self) -> None:
         self.logger = logging.Logger("core.engine")
-        self.error_handler = error_handler.ErrorHandler()
+        self.error_handler = error_handler.ErrorHandler() if not DEBUG_DISABLE_ERROR_HANDLER else None
 
         context.GameContext.set_game(self)
 
@@ -17,6 +17,9 @@ class Game:
     
     def handle_events(self):
         return self.scene_manager.active.handle_events()
+
+    def update_window_title(self, text=""):
+        pygame.display.set_caption(f"BrokeOut {VERSION} ({RELEASE_STATE}){" - " if text != '' else ""}{text}")
 
     def update(self): 
         self.scene_manager.update()
@@ -35,7 +38,7 @@ class Game:
             pygame.OPENGL | pygame.DOUBLEBUF
         )
         self.window = pygame.Surface(window.get_size(), pygame.SRCALPHA, 32)
-        pygame.display.set_caption("Break Out V2")
+        self.update_window_title()
 
         pygame.mouse.set_visible(False)
 
@@ -48,6 +51,8 @@ class Game:
         self.level_scene = level.LevelScene()
 
         self.active_scene = self.scene_manager.set_active_scene(self.splash_scene if not DEBUG_DISABLE_SPLASH else self.menu_scene)
+        if(DEBUG_STARTUP_GAME):
+            self.active_scene = self.scene_manager.set_active_scene(self.level_scene)
         self.logger.success(f"Changed current active scene")
 
         while True:
