@@ -1,5 +1,7 @@
 #type: ignore
 
+from systems.logging import Logger
+
 from settings import *
 from core.context import Context
 import numpy as np
@@ -8,10 +10,12 @@ import pygame
 
 class Renderer(Context):
     def __init__(self, shader_name: str | None = None) -> None:
+        self.logger = Logger("systems.renderer")
         super().__init__()
         self.shader_name = shader_name if DEBUG_ENABLED_SHADERS else ""
         self.ctx = moderngl.create_context()
         self.setup_shaders()
+        self.logger.success(f"Renderer instance {self} initialised")
     
     def setup_shaders(self):
         """Initialize OpenGL shaders"""
@@ -70,8 +74,11 @@ class Renderer(Context):
             self.prog["warp"].value = 0.0
         if "scan" in self.prog:
             self.prog["scan"].value = 0.1
+        
+        self.logger.success("Shaders initialised")
     
     def set_curvature(self, curvature: float):
+        self.logger.log(f"Screen curvature change requested to {curvature}")
         if "warp" in self.prog:
             self.prog["warp"].value = curvature
     

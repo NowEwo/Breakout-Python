@@ -8,6 +8,8 @@ from systems import renderer, audio
 
 from settings import *
 
+import random
+
 import pygame
 
 class LevelScene(Scene):
@@ -33,7 +35,7 @@ class LevelScene(Scene):
         self.offset_x, self.offset_y = 0,0
 
         self.player = player.Player()
-        self.bricks = [0 for i in range(15)]
+        self.bricks = []
         self.stats = [StatsElement(), ProgressBar()]
 
         self.shaders = renderer.Renderer("crt")
@@ -54,11 +56,15 @@ class LevelScene(Scene):
         return True
 
     def update(self):
+        if (self._get_ticks() % 43) == 0:
+            self.color = [random.randint(150,255) for i in range(3)]
+            self.stats[1].progress = 1
+
         [i.update() for i in self.stats]
         self.player.update()
     
     def draw(self):
-        self.game.window.fill([c // 3 for c in (255, 153, 191)])
+        self.game.window.fill([c // 3 for c in self.color])
 
         self.surface = pygame.Surface(self.game.window.get_size(), pygame.SRCALPHA)
 

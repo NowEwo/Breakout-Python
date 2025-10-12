@@ -1,7 +1,7 @@
 #type: ignore
 
 from core.scene_manager import Scene
-from systems import renderer, audio
+from systems import renderer, audio, logging
 from objects.menu import credits
 from objects.gui import mouse, button
 
@@ -14,6 +14,7 @@ import pygame
 
 class MenuScene(Scene):
     def __init__(self) -> None:
+        self.logger = logging.Logger("scenes.menu")
         super().__init__()
 
     def run(self):
@@ -63,19 +64,22 @@ class MenuScene(Scene):
                 elif(self.menu_buttons["Credits"].get_collided()):
                     self.scroll = 0
                     self.egg = random.randint(0,10) == 5 or DEBUG_EASTER_EGG
+                    self.logger.log(f"Switching to credits with easter egg = {self.egg}")
                     self.credits = True
                 elif(self.menu_buttons["Web"].get_collided()):
+                    self.logger.log("Opening website in user's default browser")
                     webbrowser.open("https://nowewo.github.io/BrokeOut/")
                 elif(self.menu_buttons["Quit"].get_collided()):
-                    exit()
-
+                    return False
                 elif(self.credits_back_button.get_collided()):
+                    self.logger.log("Disabling credits")
                     self.credits = False
             elif event.type == pygame.MOUSEWHEEL:
                 self.scroll += event.y * 25
             
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE and self.credits:
+                    self.logger.log("Disabling credits")
                     self.credits = False
         return True
     

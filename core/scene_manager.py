@@ -2,17 +2,21 @@
 
 from core import context
 
+from systems import logging
+
 from settings import TARGET_FPS
 
 import pygame
 
 class SceneManager(context.Context):
     def __init__(self) -> None:
+        self.logger = logging.Logger("core.scene_manager")
         self.active = Scene() # Set an empty scene as the active one
 
         super().__init__()
 
     def set_active_scene(self, scene):
+        self.logger.log(f"changing active scene to {type(scene)}")
         self.active.inactive()
         self.game.active_scene = scene
         self.active = scene
@@ -30,17 +34,10 @@ class SceneManager(context.Context):
 
 class Scene(context.Context):
     def __init__(self) -> None:
-        super().__init__()
-        self._entities = []
+        self.logger = logging.Logger("core.scene_manager.scene")
         self._runtime_timer = 0.0
-    
-    def register_entity(self, entity):
-        self._entities.append(entity)
-        return entity
-
-    def remove_entity(self, entity):
-        self._entities.remove(entity)
-        del entity
+        super().__init__()
+        self.logger.success(f"New scene loaded as {self}")
     
     def handle_events(self):
         for event in pygame.event.get():
@@ -49,9 +46,11 @@ class Scene(context.Context):
         return True
 
     def run(self):
+        self.logger.log(f"Scene {self} now running")
         return
     
     def inactive(self):
+        self.logger.log(f"Scene {self} now inactive")
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.stop()
         self._runtime_timer = 0
