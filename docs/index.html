@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/upheaval');
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+            height: 100vh;
+
+            line-height: 3px;
+
+            background-color: #401f2b;
+            color: rgb(255, 153, 191);
+
+            font-family: 'Upheaval TT (BRK)', sans-serif;
+        }
+
+        .f-h {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+
+        button {
+            padding: 9px;
+            border: none;
+            background-color: rgb(255, 153, 191);
+            color: #401f2b;
+            transition: all ease-in-out 0.1s;
+
+            font-size: 19px;
+
+            font-family: 'Upheaval TT (BRK)', sans-serif;
+        }
+
+        button:hover {
+            box-shadow: 0px 5px 0px 0px #94545c;
+            transform: translateY(-3px);
+        }
+
+        img {
+            height: 91px;
+            animation: pulse infinite alternate ease-in-out 3s
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            100% {
+                transform: scale(1.09) rotate(3deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://github.com/NowEwo/BrokeOut/blob/main/assets/images/Icons/Icon.png?raw=true">
+    <h1>Broke Out</h1>
+    <p>Basically a game about breaking things</p>
+    <div class="f-h">
+        <button class="dl-btn">Download Now</button>
+        <button class="gh-btn">Visit GitHub</button>
+    </div>
+</body>
+<script>
+    document.body.querySelector(".dl-btn").onclick = () => {
+        document.location.href = "https://github.com/NowEwo/BrokeOut/archive/refs/heads/main.zip";
+    };
+    document.body.querySelector(".gh-btn").onclick = () => {
+        document.location.href = "https://github.com/NowEwo/BrokeOut";
+    }
+</script>
+
+</html>

@@ -1,12 +1,13 @@
 #type: ignore
 
-from core.scene_manager import Scene, EntityCollection
+from core.scene_manager import Scene
 from systems import renderer, audio
 from objects.menu import credits
 from objects.gui import mouse, button
 
 from settings import *
 
+import webbrowser
 import random
 
 import pygame
@@ -37,7 +38,8 @@ class MenuScene(Scene):
         self.menu_buttons = {
             "Play" : button.Button((center[0], center[1]), [151,51], "Play"),
             "Credits" : button.Button((center[0], center[1]+53), [151,51], "Credits"),
-            "Quit" : button.Button((center[0], center[1]+106), [151,51], "Quit")
+            "Web" : button.Button((center[0], center[1]+106), [151,51], "Website"),
+            "Quit" : button.Button((center[0], center[1]+159), [151,51], "Quit"),
         }
         self.credits_back_button = button.Button((95, 95), [51,51], "ESC")
 
@@ -62,6 +64,8 @@ class MenuScene(Scene):
                     self.scroll = 0
                     self.egg = random.randint(0,10) == 5 or DEBUG_EASTER_EGG
                     self.credits = True
+                elif(self.menu_buttons["Web"].get_collided()):
+                    webbrowser.open("https://nowewo.github.io/brokeout")
                 elif(self.menu_buttons["Quit"].get_collided()):
                     exit()
 
