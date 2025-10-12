@@ -116,11 +116,12 @@ uv run main.py
 
 ## 👥 Authors
 
-| Name                                 | Role                     |
-| ------------------------------------ | ------------------------ |
-| [@NowEwo](https://github.com/NowEwo) | Lead Developer           |
-| [@titwix](https://github.com/titwix) | Developer                |
-| Eliot Hartel                         | Developer                |
+| Name                                 | Role                               |
+| ------------------------------------ | ------------------------           |
+| [@NowEwo](https://github.com/NowEwo) | Lead Developer                     |
+| [@titwix](https://github.com/titwix) | Developer                          |
+| Eliot Hartel                         | Developer                          |
+| [@yamikocrystal](https://github.com/yamikocrystal) | The cute fox drawing |
 
 ---
 
