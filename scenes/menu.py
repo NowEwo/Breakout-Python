@@ -69,19 +69,19 @@ class MenuScene(Scene):
             if event.type == pygame.QUIT:
                 return False
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and not self.credits:
-                if(self.menu_buttons["Play"].get_collided()):
+                if self.menu_buttons["Play"].get_collided():
                     self.game.scene_manager.set_active_scene(self.game.level_scene)
-                elif(self.menu_buttons["Credits"].get_collided()):
+                elif self.menu_buttons["Credits"].get_collided():
                     self.scroll = 0
                     self.egg = random.randint(0,10) == 5 or DEBUG_EASTER_EGG
                     self.logger.log(f"Switching to credits with easter egg = {self.egg}")
                     self.credits = True
-                elif(self.menu_buttons["Web"].get_collided()):
+                elif self.menu_buttons["Web"].get_collided():
                     self.logger.log("Opening website in user's default browser")
                     webbrowser.open("https://nowewo.github.io/BrokeOut/")
-                elif(self.menu_buttons["Quit"].get_collided()):
+                elif self.menu_buttons["Quit"].get_collided():
                     return False
-                elif(self.credits_back_button.get_collided()):
+                elif self.credits_back_button.get_collided():
                     self.logger.log("Disabling credits")
                     self.credits = False
             elif event.type == pygame.MOUSEWHEEL:

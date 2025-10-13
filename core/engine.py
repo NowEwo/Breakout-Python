@@ -52,8 +52,13 @@ class Game:
         self.level_scene = level.LevelScene()
 
         self.active_scene = self.scene_manager.set_active_scene(self.splash_scene if not DEBUG_DISABLE_SPLASH else self.menu_scene)
-        if(DEBUG_STARTUP_GAME):
+        if DEBUG_STARTUP_GAME:
             self.active_scene = self.scene_manager.set_active_scene(self.level_scene)
+
+        if DEBUG_DEVELOPER_SCENE:
+            from scenes.development_scene import DevelopmentScene
+            self.active_scene = self.scene_manager.set_active_scene(DevelopmentScene())
+
         self.logger.success(f"Changed current active scene")
 
         while True:

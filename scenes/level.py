@@ -16,6 +16,7 @@ import random
 import pygame
 
 class LevelScene(Scene):
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -87,9 +88,11 @@ class LevelScene(Scene):
         self.game.discordrpc.set_rich_presence("Playing in classic mode", f"Level {self.level}")
 
     def trigger_next_level(self):
+        self.color = [random.randint(150,255) for _ in range(3)]
+        self.brick_group.generate_bricks()
+
         self.screen_shake.start(10, 5)
 
-        self.color = [random.randint(150,255) for _ in range(3)]
         self.level += 1
         self.lives += 1
 
@@ -123,6 +126,8 @@ class LevelScene(Scene):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.game.scene_manager.set_active_scene(self.game.menu_scene)
+                if event.key == pygame.K_SPACE:
+                    self.trigger_next_level()
             elif event.type == 3159:
                 self.ball.gravity_enabled = not self.ball.gravity_enabled
         return True
