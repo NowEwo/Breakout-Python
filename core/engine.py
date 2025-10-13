@@ -18,10 +18,11 @@ class Game:
     def handle_events(self):
         return self.scene_manager.active.handle_events()
 
-    def update_window_title(self, text=""):
+    @staticmethod
+    def update_window_title(text=""):
         pygame.display.set_caption(f"BrokeOut {VERSION} ({RELEASE_STATE}){" - " if text != '' else ""}{text}")
 
-    def update(self): 
+    def update(self):
         self.scene_manager.update()
     def draw(self):
         self.scene_manager.draw()

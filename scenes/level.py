@@ -89,7 +89,7 @@ class LevelScene(Scene):
     def trigger_next_level(self):
         self.screen_shake.start(10, 5)
 
-        self.color = [random.randint(150,255) for i in range(3)]
+        self.color = [random.randint(150,255) for _ in range(3)]
         self.level += 1
         self.lives += 1
 

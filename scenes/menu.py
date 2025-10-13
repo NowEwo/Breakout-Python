@@ -168,7 +168,8 @@ class MenuScene(Scene):
 
         self.hint.draw()
 
-        # surface.fill([255,255,255])
+        self.game.window.blit(background, (1+((self.mousex-400)//25)+shake[0], 1+((self.mousey-300)//20)+shake[1]))
+
         self.game.window.blit(background, (1+((self.mousex-400)//20)+shake[0], 1+((self.mousey-300)//20)+shake[1]))
         self.game.window.blit(self.surface, (1+((self.mousex-400)//10)+shake[0], 1+((self.mousey-300)//10)+shake[1]))
 
