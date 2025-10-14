@@ -61,9 +61,10 @@ class LevelScene(Scene):
             self.game_started = True
 
         self.LoseMessages = [
-            "Oops", "Maybe do better next time", "Actually that was fun",
+            "Oopsie :3", "Maybe do better next time", "Actually that was fun",
             "Ew you don't play very well", "You have to touch the ball actually",
-            "Stop being bad, it makes me sad", "0/20", "Lives are falling like this ball"
+            "Stop being bad, it makes me sad", "-3/10", "Lives are falling like this ball",
+            "Try harder :P","nothing beats a jet2 holiday","keep them coming","...",""
         ]
 
         self.game.discordrpc.set_rich_presence("Playing in classic mode", f"Level {self.level}")

@@ -70,7 +70,7 @@ class Ball(Entity):
 
             # Player collision
             if self.scene.player.collides_with_ball(self) and self.vy > 0:
-                if (not self.scene.player.autoplay):
+                if not self.scene.player.autoplay:
                     self.bounce_off_player(self.scene.player)
                 else:
                     self.vx = self.speed * math.cos(math.radians(random.randint(0, 180)))

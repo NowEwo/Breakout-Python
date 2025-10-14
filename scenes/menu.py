@@ -16,6 +16,7 @@ from systems import renderer, audio, logging
 class MenuScene(Scene):
     def __init__(self) -> None:
         self.logger = logging.Logger("scenes.menu")
+        self.color = [255, 153, 191]
         super().__init__()
 
     def run(self):

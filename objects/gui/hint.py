@@ -21,7 +21,7 @@ class HintElement(Entity):
             self.text_rect = self.scene.font.get_rect(self.hint_text, size=self.size)
             self.text_rect.center = (self.scene.surface.get_rect().center[0], RENDER_HEIGHT - 139)
 
-            self.scene.font.render_to(self.scene.surface, self.text_rect, self.hint_text, (255, 153, 191, self.timer),
+            self.scene.font.render_to(self.scene.surface, self.text_rect, self.hint_text, (self.scene.color[0],self.scene.color[1],self.scene.color[2], self.timer),
                                       size=self.size)
 
     def show_hint(self, text, duration=120, size=24):

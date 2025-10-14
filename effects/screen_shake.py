@@ -5,7 +5,6 @@ from settings import (SHAKE_DURATION,
                       SHAKE_MAGNITUDE)
 from systems.logging import Logger
 
-
 class ScreenShake(Context):
     """Manages screen shake effects"""
 

@@ -37,7 +37,7 @@ class Game:
 
         window = pygame.display.set_mode(
             (WINDOW_WIDTH, WINDOW_HEIGHT),
-            pygame.OPENGL | pygame.DOUBLEBUF
+            pygame.OPENGLBLIT | pygame.DOUBLEBUF
         )
         self.window = pygame.Surface(window.get_size(), pygame.SRCALPHA, 32)
         self.update_window_title()
