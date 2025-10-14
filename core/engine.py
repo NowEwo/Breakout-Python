@@ -1,7 +1,6 @@
 import pygame
 
 from core import context, error_handler, scene_manager
-from scenes import splash, menu, level
 from settings import *
 from systems import discord, logging
 
@@ -37,7 +36,7 @@ class Game:
 
         window = pygame.display.set_mode(
             (WINDOW_WIDTH, WINDOW_HEIGHT),
-            pygame.OPENGLBLIT | pygame.DOUBLEBUF
+            pygame.OPENGL | pygame.DOUBLEBUF
         )
         self.window = pygame.Surface(window.get_size(), pygame.SRCALPHA, 32)
         self.update_window_title()
@@ -46,20 +45,14 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.logger.log("Initialising scenes objects")
-
-        self.splash_scene = splash.SplashScene()
-        self.menu_scene = menu.MenuScene()
-        self.level_scene = level.LevelScene()
-
-        self.active_scene = self.scene_manager.set_active_scene(
-            self.splash_scene if not DEBUG_DISABLE_SPLASH else self.menu_scene)
-        if DEBUG_STARTUP_GAME:
-            self.active_scene = self.scene_manager.set_active_scene(self.level_scene)
-
-        if DEBUG_DEVELOPER_SCENE:
-            from scenes.development_scene import DevelopmentScene
-            self.active_scene = self.scene_manager.set_active_scene(DevelopmentScene())
+        if DEBUG_DISABLE_SPLASH:
+            self.active_scene = self.scene_manager.set_active_scene("menu")
+        elif DEBUG_STARTUP_GAME:
+            self.active_scene = self.scene_manager.set_active_scene("level")
+        elif DEBUG_DEVELOPER_SCENE:
+            self.active_scene = self.scene_manager.set_active_scene("development")
+        else:
+            self.active_scene = self.scene_manager.set_active_scene("splash")
 
         self.logger.success(f"Changed current active scene")
 

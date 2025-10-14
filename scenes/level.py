@@ -124,7 +124,7 @@ class LevelScene(Scene):
                         self.game_started = True
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.game.scene_manager.set_active_scene(self.game.menu_scene)
+                    self.game.scene_manager.set_active_scene("menu")
                 if event.key == pygame.K_SPACE:
                     self.trigger_next_level()
             elif event.type == 3159:

@@ -47,7 +47,7 @@ class SplashScene(Scene):
             indice = (self._get_ticks() - 180) // 4
             self.text = "Broke Out"[0:int(indice)]
         if self._get_ticks() > 220:
-            self.game.scene_manager.set_active_scene(self.game.menu_scene)
+            self.game.scene_manager.set_active_scene("menu")
 
     def draw(self):
         self.game.window.fill(self.color)

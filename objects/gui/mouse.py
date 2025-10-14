@@ -22,4 +22,4 @@ class Mouse(prototype.Entity):
                 pygame.draw.rect(self.game.window, [255, 0, 0], (mousex, 0, 1, RENDER_HEIGHT))
                 pygame.draw.rect(self.game.window, [255, 0, 0], (0, mousey, RENDER_WIDTH, 1))
 
-            pygame.draw.rect(self.game.window, (255, 153, 191, 109), cursor, 0)
+            pygame.draw.rect(self.game.window, (255, 255, 255, 109), cursor, 0)

@@ -16,7 +16,7 @@ from systems import renderer, audio, logging
 class MenuScene(Scene):
     def __init__(self) -> None:
         self.logger = logging.Logger("scenes.menu")
-        self.color = [255, 153, 191]
+        self.color = [255, 153, 191] if random.randint(0,10) != 1 else [random.randint(100,255) for _ in range(3)]
         super().__init__()
 
     def run(self):
@@ -70,7 +70,7 @@ class MenuScene(Scene):
                 return False
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and not self.credits:
                 if self.menu_buttons["Play"].get_collided():
-                    self.game.scene_manager.set_active_scene(self.game.level_scene)
+                    self.game.scene_manager.set_active_scene("level")
                 elif self.menu_buttons["Credits"].get_collided():
                     self.scroll = 0
                     self.egg = random.randint(0, 10) == 5 or DEBUG_EASTER_EGG
@@ -91,6 +91,8 @@ class MenuScene(Scene):
                 if event.key == pygame.K_ESCAPE and self.credits:
                     self.logger.log("Disabling credits")
                     self.credits = False
+                if event.key == pygame.K_SPACE:
+                    self.game.scene_manager.set_active_scene("menu", False)
         return True
 
     def compute_surface_offset(self):
@@ -133,39 +135,39 @@ class MenuScene(Scene):
     def draw(self):
         shake = self.shake.get_offset()
 
-        bg = [c // 3 for c in (255, 153, 191)]
+        bg = [c // 3 for c in self.color]
         self.game.window.fill(bg)
 
         self.surface = pygame.Surface(self.game.window.get_size(), pygame.SRCALPHA, 32)
 
         if not self.credits:
             # Display main menu
-            [self.menu_buttons[element].draw(self.surface) for element in self.menu_buttons]
+            [self.menu_buttons[element].draw(self.surface, self.color) for element in self.menu_buttons]
         else:
             # Credits surface
             self.credits_object.draw(self)
             pygame.draw.rect(self.surface, (bg[0], bg[1], bg[2], 51), (0, 0, RENDER_WIDTH, 131))
 
-            self.credits_back_button.draw(self.surface)
+            self.credits_back_button.draw(self.surface, self.color)
 
         # Title element ("Broke Out")
         self.text_rect = self.font.get_rect(self.text, size=self.titlesize)
         self.text_rect.center = (self.surface.get_rect().center[0], self.titley)
 
-        self.font.render_to(self.surface, self.text_rect, self.text, (255, 153, 191), size=self.titlesize)
+        self.font.render_to(self.surface, self.text_rect, self.text, self.color, size=self.titlesize)
 
         # Bottom text
         self.text_rect = self.font.get_rect(f"(c) 2025-2026 Broke Team - Version {VERSION} ({RELEASE_STATE})", size=12)
         self.text_rect.center = (self.surface.get_rect().center[0], RENDER_HEIGHT - 15)
 
         self.font.render_to(self.game.window, self.text_rect,
-                            f"(c) 2025-2026 Broke Team - Version {VERSION} ({RELEASE_STATE})", (255, 153, 191), size=12)
+                            f"(c) 2025-2026 Broke Team - Version {VERSION} ({RELEASE_STATE})", self.color, size=12)
 
         background = pygame.Surface(self.game.window.get_size(), pygame.SRCALPHA, 32)
 
         for line in range(17):
             for column in range(19):
-                pygame.draw.rect(background, (255, 153, 191, 25), (-25 + (column * 51), -25 + (line * 51), 45, 45))
+                pygame.draw.rect(background, (self.color[0], self.color[1], self.color[2],  25), (-25 + (column * 51), -40 + (line * 51) - (self._get_ticks()//4)%50, 45, 45))
 
         self.hint.draw()
 

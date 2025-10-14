@@ -54,4 +54,4 @@ class Credits(Entity):
                 text_rect = self.font.get_rect(line, size=24)
                 text_rect.center = (scene.surface.get_rect().center[0],
                                     scene.scroll + scene.surface.get_rect().center[1] // 2 + (i * 25))
-                self.font.render_to(scene.surface, text_rect, line, (255, 153, 191), size=24)
+                self.font.render_to(scene.surface, text_rect, line, self.scene.color, size=24)

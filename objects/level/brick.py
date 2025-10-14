@@ -1,4 +1,5 @@
 import random
+import math
 
 import pygame
 
@@ -55,36 +56,41 @@ class Brick(Entity):
         """Check and handle collision with ball"""
         ball = self.scene.ball
 
-        margin = self.height / 2 + BALL_RADIUS
-        dy = ball.y - self.y
-        hit = False
+        rect = pygame.Rect(
+            self.x - self.width / 2,
+            self.y - self.height / 2,
+            self.width,
+            self.height
+        )
 
-        if ball.x >= self.x:
-            dx = ball.x - (self.x + self.width / 2 - self.height / 2)
-            if abs(dy) <= margin and dx <= margin:
-                hit = True
-                if dx <= abs(dy):
-                    ball.vy = -ball.vy
-                else:
-                    ball.vx = -ball.vx
-        else:
-            dx = ball.x - (self.x - self.width / 2 + self.height / 2)
-            if abs(dy) <= margin and -dx <= margin:
-                hit = True
-                if -dx <= abs(dy):
-                    ball.vy = -ball.vy
-                else:
-                    ball.vx = -ball.vx
+        closest_x = max(rect.left, min(ball.x, rect.right))
+        closest_y = max(rect.top, min(ball.y, rect.bottom))
 
-        if hit:
-            self.handle_hit()
-            self.logger.log(f"Brick {self} got hit")
+        dx = ball.x - closest_x
+        dy = ball.y - closest_y
+
+        if (dx * dx + dy * dy) < BALL_RADIUS ** 2:
+            overlap_x = BALL_RADIUS - abs(dx)
+            overlap_y = BALL_RADIUS - abs(dy)
+
+            if overlap_x < overlap_y:
+                ball.vx = -ball.vx
+                ball.x += math.copysign(overlap_x, dx) # overlap_x value but dx sign
+            else:
+                ball.vy = -ball.vy
+                ball.y += math.copysign(overlap_y, dy) # overlap_y value but dy sign
+
             self.life -= 1
-            score_change = int(25 * dy) if int(25 * dy) > 0 else 0
-            return score_change
+            self.logger.log(f"Brick {self} got hit ({self.life} left)")
 
-        return None
+            score_change = 1500
+            self.scene.score += score_change
+            self.scene.screen_shake.start(duration=3, magnitude=3)
+            self.scene.shaders.set_curvature(0.41)
 
+            return True
+
+        return False
 
 class BrickGroup(Entity):
     def __init__(self) -> None:
@@ -104,25 +110,17 @@ class BrickGroup(Entity):
                 self.bricks.append(brick)
 
     def update(self):
-        if len(self.bricks) == 0:
-            self.logger.log(f"All bricks are broken, now going to level {self.scene.level}")
-
+        if not self.bricks:
+            self.logger.log(f"All bricks are broken, advancing level {self.scene.level}")
             self.scene.trigger_next_level()
-
             self.generate_bricks()
 
-        # Check brick collisions and do some fancy effect if there's one
+        new_bricks = []
         for brick in self.bricks:
             if brick.is_alive():
-                score_change = brick.check_ball_collision()
-                if score_change is not None:
-                    self.logger.log(
-                        f"Requested score update : {self.scene.score}{'+' if score_change >= 0 else ''}{score_change}={self.scene.score + score_change}"
-                    )
-                    self.scene.screen_shake.start(duration=3, magnitude=3)
-                    hint = ("" if score_change < 0 else "+") + str(score_change)
-                    self.scene.score += score_change
-                    self.scene.shaders.set_curvature(0.41)
+                brick.check_ball_collision()
+                new_bricks.append(brick)
+        self.bricks = new_bricks
 
     def draw(self):
         for brick in self.bricks:
