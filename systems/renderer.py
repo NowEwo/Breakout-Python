@@ -18,6 +18,10 @@ class Renderer(Context):
         self.setup_shaders()
         self.logger.success(f"Renderer instance {self} initialised")
 
+    def change_shader(self, shader_name: str) -> None:
+        self.shader_name = shader_name
+        self.setup_shaders()
+
     def setup_shaders(self):
         """Initialize OpenGL shaders"""
         if self.shader_name:
