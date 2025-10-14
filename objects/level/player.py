@@ -1,12 +1,10 @@
-#type: ignore
-
-from objects.prototype import Entity
-
-from core.context import GameContext
-
-from settings import *
+# type: ignore
 
 import pygame
+
+from core.context import GameContext
+from objects.prototype import Entity
+from settings import *
 
 
 class Player(Entity, GameContext):
@@ -25,7 +23,7 @@ class Player(Entity, GameContext):
         vertical = abs(self.y - ball.y) < 2 * BALL_RADIUS
         horizontal = abs(self.x - ball.x) < self.width / 2 + BALL_RADIUS
         return vertical and horizontal
-    
+
     def update(self):
         x = pygame.mouse.get_pos()[0] if not self.autoplay else self.scene.ball.x
         if x - self.width / 2 < self.scene.bounds['x_min']:
@@ -34,7 +32,7 @@ class Player(Entity, GameContext):
             self.x = self.scene.bounds['x_max'] - self.width / 2
         else:
             self.x = x
-    
+
     def draw(self):
         rect = pygame.Rect(
             int(self.x - self.width / 2 + self.scene.offset_x),

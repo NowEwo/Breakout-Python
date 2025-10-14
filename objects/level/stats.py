@@ -1,11 +1,11 @@
-#type: ignore
+# type: ignore
 
 import pygame
 import pygame.freetype
 
+from objects import prototype
 from settings import RENDER_WIDTH, FONT_SIZE
 
-from objects import prototype
 
 class StatsElement(prototype.Entity):
     def __init__(self) -> None:
@@ -14,7 +14,7 @@ class StatsElement(prototype.Entity):
         self.font = pygame.freetype.Font("assets/fonts/pixelated.ttf", FONT_SIZE)
 
         super().__init__()
-    
+
     def update(self):
         # Animate score (interpolation)
         if self.displayed_score < self.scene.score:
@@ -33,19 +33,20 @@ class StatsElement(prototype.Entity):
             self.scene.color
         )
 
+
 class ProgressBar(prototype.Entity):
     def __init__(self) -> None:
         self.progress = 0
 
         super().__init__()
-    
+
     def update(self):
         target = int((1 - (len(self.scene.brick_group.bricks) / (9 * 14))) * RENDER_WIDTH)
         speed = 0.1
 
         self.progress += (target - self.progress) * speed
 
-    def draw(self): 
+    def draw(self):
         self.progress_bar = pygame.Rect(
             0, 0,
             self.progress, 3

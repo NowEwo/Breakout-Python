@@ -1,11 +1,10 @@
-#type: ignore
-
-from objects.prototype import Entity
+# type: ignore
 
 import pygame
 import pygame.freetype
 
-from settings import VERSION
+from objects.prototype import Entity
+from settings import VERSION, RELEASE_STATE
 
 
 class Credits(Entity):
@@ -14,7 +13,7 @@ class Credits(Entity):
         self.font = pygame.freetype.Font("assets/fonts/pixelated.ttf", 24)
         self.text = [
             "Broke Out - By Broke Team (2025)",
-            f"Version {VERSION}",
+            f"Version {VERSION} ({RELEASE_STATE})",
             "",
             "***Developpement Team***",
             "Ewo", "Titouan Brebion-Coïa", "Eliot Hartel",

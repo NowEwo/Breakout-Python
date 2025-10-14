@@ -1,17 +1,16 @@
-#type: ignore
-
-from core import context
-
-from systems import logging
-
-from settings import TARGET_FPS
+# type: ignore
 
 import pygame
+
+from core import context
+from settings import TARGET_FPS
+from systems import logging
+
 
 class SceneManager(context.Context):
     def __init__(self) -> None:
         self.logger = logging.Logger("core.scene_manager")
-        self.active = Scene() # Set an empty scene as the active one
+        self.active = Scene()  # Set an empty scene as the active one
 
         super().__init__()
 
@@ -32,13 +31,14 @@ class SceneManager(context.Context):
     def draw(self):
         self.active.draw()
 
+
 class Scene(context.Context):
     def __init__(self) -> None:
         self.logger = logging.Logger("core.scene_manager.scene")
         self._runtime_timer = 0.0
         super().__init__()
         self.logger.success(f"New scene loaded as {self}")
-    
+
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -48,7 +48,7 @@ class Scene(context.Context):
     def run(self):
         self.logger.log(f"Scene {self} now running")
         return
-    
+
     def inactive(self):
         self.logger.log(f"Scene {self} now inactive")
         if pygame.mixer.music.get_busy():
@@ -61,15 +61,16 @@ class Scene(context.Context):
 
     def update(self):
         return
-    
+
     def draw(self):
         return
+
 
 # Not finished
 class EntityCollection():
     def __init__(self) -> None:
         self._entities = []
-    
+
     def register_entity(self, entity):
         self._entities.append(entity)
         return entity
@@ -85,4 +86,3 @@ class EntityCollection():
     def draw(self):
         for entity in self._entities:
             entity.draw()
-    

@@ -1,12 +1,11 @@
-#type: ignore
-
-from core.scene_manager import Scene
-from systems import renderer
-
-from settings import *
+# type: ignore
 
 import pygame
 import pygame.freetype
+
+from core.scene_manager import Scene
+from settings import *
+from systems import renderer
 
 
 class SplashScene(Scene):

@@ -1,7 +1,8 @@
 import sys
 
-from systems.logging import Logger
 from core.context import GameContext
+from systems.logging import Logger
+
 
 class ErrorHandler(GameContext):
     def __init__(self) -> None:
@@ -16,10 +17,11 @@ class ErrorHandler(GameContext):
             self.logger.log("Keyboard Interrupt triggered, exiting...")
             self.logger.success("Have a nice day :3")
         else:
-           self.logger.critical("Error occured D: , now displaying execution dump")
-           self.logger.highlight("--------- START OF DUMP ---------")
-           for key, value in GameContext.get_game().__dict__.items():
-                if(not key.startswith("__")):
-                    self.logger.log(f"{key}: {type(value).__name__} = {value}")
-           self.logger.highlight("--------- END OF DUMP ---------")
-           self.logger.critical(f"Error of type {exctype.__name__} at context [{value}]")
+            self.logger.critical("Error occurred D: , now displaying execution dump")
+            self.logger.highlight("--------- START OF DUMP ---------")
+            for key, value in GameContext.get_game().__dict__.items():
+                if key.startswith("__"):
+                    continue
+                self.logger.log(f"{key}: {type(value).__name__} = {value}")
+            self.logger.highlight("--------- END OF DUMP ---------")
+            self.logger.critical(f"Error of type {exctype.__name__} at context [{value}]")

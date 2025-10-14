@@ -1,19 +1,17 @@
-#type: ignore
-
-from objects.level import player, ball, brick
-from objects.level.stats import StatsElement, ProgressBar
-from objects.gui import hint
-
-from effects import screen_shake
-
-from core.scene_manager import Scene
-from systems import renderer, audio
-
-from settings import *
+# type: ignore
 
 import random
 
 import pygame
+
+from core.scene_manager import Scene
+from effects import screen_shake
+from objects.gui import hint
+from objects.level import player, ball, brick
+from objects.level.stats import StatsElement, ProgressBar
+from settings import *
+from systems import renderer, audio
+
 
 class LevelScene(Scene):
 
@@ -43,14 +41,14 @@ class LevelScene(Scene):
         self.color = [255, 153, 191]
 
         self.screen_shake = screen_shake.ScreenShake()
-        self.offset_x, self.offset_y = 0,0
+        self.offset_x, self.offset_y = 0, 0
 
         self.player = player.Player()
         self.ball = ball.Ball()
 
         self.brick_group = brick.BrickGroup()
         self.brick_group.generate_bricks()
-        
+
         self.stats = [StatsElement(), ProgressBar(), hint.HintElement()]
 
         self.shaders = renderer.Renderer("crt")
@@ -69,10 +67,10 @@ class LevelScene(Scene):
         ]
 
         self.game.discordrpc.set_rich_presence("Playing in classic mode", f"Level {self.level}")
-    
+
     def background_color(self):
-        return [c//3 for c in self.color]
-    
+        return [c // 3 for c in self.color]
+
     def reset_game(self):
         self.screen_shake.start(10, 5)
 
@@ -88,7 +86,7 @@ class LevelScene(Scene):
         self.game.discordrpc.set_rich_presence("Playing in classic mode", f"Level {self.level}")
 
     def trigger_next_level(self):
-        self.color = [random.randint(150,255) for _ in range(3)]
+        self.color = [random.randint(150, 255) for _ in range(3)]
         self.brick_group.generate_bricks()
 
         self.screen_shake.start(10, 5)
@@ -98,14 +96,14 @@ class LevelScene(Scene):
 
         self.stats[2].show_hint(f"Level {self.level}", size=24)
         self.game.discordrpc.set_rich_presence("Playing in classic mode", f"Level {self.level}")
-    
+
     def trigger_lose(self):
         if self.lives != 1:
-                self.stats[2].show_hint(random.choice(self.LoseMessages), size=24)
-                self.lives -= 1
-                self.logger.log(
-                    f"Player lose this round, now having {self.lives} more lives"
-                )
+            self.stats[2].show_hint(random.choice(self.LoseMessages), size=24)
+            self.lives -= 1
+            self.logger.log(
+                f"Player lose this round, now having {self.lives} more lives"
+            )
         else:
             self.logger.log("Player lose the game, resetting all states")
             self.reset_game()
@@ -133,13 +131,13 @@ class LevelScene(Scene):
         return True
 
     def update(self):
-        #self.color = [random.randint(150,255) for i in range(3)]
+        # self.color = [random.randint(150,255) for i in range(3)]
 
         [i.update() for i in self.stats]
         self.brick_group.update()
         self.player.update()
         self.ball.update()
-    
+
     def draw(self):
         self.offset_x, self.offset_y = self.screen_shake.get_offset()
 
@@ -153,6 +151,6 @@ class LevelScene(Scene):
 
         [i.draw() for i in self.stats]
 
-        self.game.window.blit(self.surface, [self.offset_x,self.offset_y])
+        self.game.window.blit(self.surface, [self.offset_x, self.offset_y])
 
         self.shaders.render_frame()

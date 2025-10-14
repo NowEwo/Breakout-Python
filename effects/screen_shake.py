@@ -1,13 +1,14 @@
-from systems.logging import Logger
-from settings import (SHAKE_DURATION,
-                      SHAKE_MAGNITUDE)
+import random
 
 from core.context import Context
+from settings import (SHAKE_DURATION,
+                      SHAKE_MAGNITUDE)
+from systems.logging import Logger
 
-import random
 
 class ScreenShake(Context):
     """Manages screen shake effects"""
+
     def __init__(self):
         self.logger = Logger("effects.screen_shake")
 
@@ -15,13 +16,13 @@ class ScreenShake(Context):
         self.duration = 0
         self.magnitude = SHAKE_MAGNITUDE
         super().__init__()
-    
+
     def start(self, duration=SHAKE_DURATION, magnitude=SHAKE_MAGNITUDE):
         """Start a screen shake effect"""
         self.logger.log(f"Screen shake triggered with {duration=} frames and {magnitude=}")
         self.duration = duration
         self.magnitude = magnitude
-    
+
     def get_offset(self):
         """Get current shake offset and update duration"""
         if self.duration > 0:

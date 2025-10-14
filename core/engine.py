@@ -1,10 +1,10 @@
+import pygame
+
 from core import context, error_handler, scene_manager
 from scenes import splash, menu, level
+from settings import *
 from systems import discord, logging
 
-from settings import *
-
-import pygame
 
 class Game:
     def __init__(self) -> None:
@@ -14,7 +14,7 @@ class Game:
         context.GameContext.set_game(self)
 
         self.scene_manager = scene_manager.SceneManager()
-    
+
     def handle_events(self):
         return self.scene_manager.active.handle_events()
 
@@ -24,16 +24,17 @@ class Game:
 
     def update(self):
         self.scene_manager.update()
+
     def draw(self):
         self.scene_manager.draw()
-    
+
     def run(self):
-        
+
         self.discordrpc = discord.DiscordRPC()
-        
+
         self.logger.log("Initialising Pygame window")
         pygame.init()
-        
+
         window = pygame.display.set_mode(
             (WINDOW_WIDTH, WINDOW_HEIGHT),
             pygame.OPENGL | pygame.DOUBLEBUF
@@ -51,7 +52,8 @@ class Game:
         self.menu_scene = menu.MenuScene()
         self.level_scene = level.LevelScene()
 
-        self.active_scene = self.scene_manager.set_active_scene(self.splash_scene if not DEBUG_DISABLE_SPLASH else self.menu_scene)
+        self.active_scene = self.scene_manager.set_active_scene(
+            self.splash_scene if not DEBUG_DISABLE_SPLASH else self.menu_scene)
         if DEBUG_STARTUP_GAME:
             self.active_scene = self.scene_manager.set_active_scene(self.level_scene)
 
@@ -68,7 +70,7 @@ class Game:
             self.draw()
             pygame.display.flip()
             self.clock.tick(TARGET_FPS)
-        
+
         self.logger.highlight(f"Have a nice day :3")
 
         pygame.quit()
